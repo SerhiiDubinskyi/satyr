@@ -50,3 +50,14 @@ body
     transition: transform 0.5s, width 0.5s, height 0.5s, background-color 0.5s;
 }
 
+
+.navigationDot.expanded {
+    cursor: auto;
+    border-radius: 0%;
+    position: absolute;
+
+    width: 100vw; 
+    height: 100vw;
+    z-index: 10;
+  }
+  

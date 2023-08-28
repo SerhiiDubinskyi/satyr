@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { createRoot } from "react-dom/client";
 import { HeartOutline } from 'react-ionicons'
-// import { dot } from "./types/popup_types"
 
 import "./popup.css";
 
@@ -10,7 +9,13 @@ interface dotIcon {
 	iconTransition: string;
 	// color: string;
 	// filter: string;
-  }
+	}
+interface dotProps {
+	dotPosition: number;
+	dotSize: number;
+	dotBackground: string;
+}
+
 
 //background #333849
 const Popup = () => {
@@ -19,6 +24,7 @@ const Popup = () => {
 	const [dotBackground, setDotBackground] = useState<string>("white");
 	const [iconSize, setIconProps] = useState<dotIcon>({iconSize: "0px", iconTransition: "0.9s"});
 	const [hoveredDot, setHoveredDot] = useState<number | null>(null);
+	const [expandedDot, setExpandedDot] = useState<number | null>(null);
 
 	const onNavigationHover = ():void => {
 		setDotPosition(60);
@@ -36,27 +42,12 @@ const Popup = () => {
 
 	const onDotHover = (idx: number):void => {
 		setHoveredDot(idx);
-		// setIconProps(
-		// 	{
-		// 		iconSize: "30px",
-		// 		iconTransition: "1.6s",
-		// 		color: "#2dfc52",
-		// 		filter: "drop-shadow(0px 0px 2px #2dfc52) drop-shadow(0px 0px 5px #2dfc52) drop-shadow(0px 0px 15px #2dfc52)" 
-				
-		// 	}
-		// );
 	}
 	const onDotLeave = ():void => {
 		setHoveredDot(null);
-		// setIconProps(
-		// 	{
-		// 		iconSize: "30px",
-		// 		iconTransition: "1.6s",
-		// 		color: "white",
-		// 		filter: "none" 
-				
-		// 	}
-		// );
+	}
+	const onDotClick = (idx: number):void => {
+		setExpandedDot(idx);
 	}
 
 const dotCoords = [ 
@@ -80,9 +71,10 @@ const dotCoords = [
 			<span
 				onMouseEnter={() => onDotHover(index)}
 				onMouseLeave={onDotLeave}
+				onClick={() => onDotClick(index)}
 				key={index}
-				className="navigationDot"
-				style={
+				className={`navigationDot ${expandedDot === index ? 'expanded' : ''}`}
+				style={ index === expandedDot ? {} :
 					{
 						transform: `translate(calc(${dotPosition}px * ${innerArray[1]}), calc(${dotPosition}px * ${innerArray[2]}))`,
 						transitionDelay: `${index * 0.1}s`,
@@ -101,7 +93,9 @@ const dotCoords = [
 						{
 							transitionDelay: `${index * 0.1}s`,
 							transition: `${iconSize.iconTransition}`,
-							filter: `${hoveredDot === index ? "drop-shadow(0px 0px 2px #2dfc52) drop-shadow(0px 0px 5px #2dfc52) drop-shadow(0px 0px 15px #2dfc52)" : "none"}`
+							filter: `${hoveredDot === index ? "drop-shadow(0px 0px 2px #2dfc52) drop-shadow(0px 0px 5px #2dfc52) drop-shadow(0px 0px 15px #2dfc52)" : "none"}`,
+
+							display: `${expandedDot === index ? "none" : "block"}`,
 						}
 					}
 				/>
