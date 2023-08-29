@@ -43,6 +43,9 @@ module.exports = {
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js", "css"],
+        alias: {
+            "@baseComponents": path.resolve(__dirname, "../src/components/"),
+        }
     },
     plugins: [
         new CopyPlugin({

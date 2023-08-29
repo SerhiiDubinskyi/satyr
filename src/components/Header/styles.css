@@ -1,0 +1,11 @@
+.header 
+{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    background-color: yellow;
+    width: 93%; 
+    /* find way to resolve it above */
+    padding-left: 7%;
+
+}

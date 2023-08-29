@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { createRoot } from "react-dom/client";
 import { HeartOutline } from 'react-ionicons'
+import { NotificationMenu } from "./popupMenus/notificationMenu/notificationMenu";
+import { Header } from "./components/Header/Header";
 
 import "./popup.css";
 
@@ -67,6 +69,8 @@ const dotCoords = [
 		onMouseEnter={onNavigationHover}
 		onMouseLeave={onNavigationLeave}
 	>
+		<NotificationMenu/>
+		{/* <Header/> */}
 			{dotCoords.map((innerArray, index) => (
 			<span
 				onMouseEnter={() => onDotHover(index)}
